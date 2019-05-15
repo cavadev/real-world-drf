@@ -20,14 +20,14 @@ script:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    docker tag web registry.heroku.com/backend-prod/web;
-    docker push registry.heroku.com/backend-prod/web;
-    heroku container:release web --app backend-prod;
+    docker tag web registry.heroku.com/real-world-drf-prod/web;
+    docker push registry.heroku.com/real-world-drf-prod/web;
+    heroku container:release web --app real-world-drf-prod;
     fi
   - if [ "$TRAVIS_BRANCH" == "qa" ]; then
-    docker tag web registry.heroku.com/backend-qa/web;
-    docker push registry.heroku.com/backend-qa/web;
-    heroku container:release web --app backend-qa;
+    docker tag web registry.heroku.com/real-world-drf-qa/web;
+    docker push registry.heroku.com/real-world-drf-qa/web;
+    heroku container:release web --app real-world-drf-qa;
     fi
 
 notifications:
