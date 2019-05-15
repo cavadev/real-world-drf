@@ -1,0 +1,37 @@
+sudo: required
+language: python
+services:
+  - docker
+python:
+  - "3.6"
+
+before_install:
+  # install heroku CLI.
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  # docker login to registry.heroku.com is automated with HEROKU_API_KEY environment variable
+
+before_script:
+  - docker-compose build
+
+script:
+  - docker-compose run --rm web bash -c "flake8 . &&
+                                         python wait_for_postgres.py &&
+                                         ./manage.py test"
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker tag web registry.heroku.com/backend-prod/web;
+    docker push registry.heroku.com/backend-prod/web;
+    heroku container:release web --app backend-prod;
+    fi
+  - if [ "$TRAVIS_BRANCH" == "qa" ]; then
+    docker tag web registry.heroku.com/backend-qa/web;
+    docker push registry.heroku.com/backend-qa/web;
+    heroku container:release web --app backend-qa;
+    fi
+
+notifications:
+  email: false
+
+cache:
+  pip: true
