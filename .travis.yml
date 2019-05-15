@@ -8,6 +8,7 @@ python:
 before_install:
   # install heroku CLI.
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  # login to heroku registry.heroku.com
   - docker login --username=_ --password="$HEROKU_AUTH_TOKEN" registry.heroku.com
 
 before_script:

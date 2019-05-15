@@ -65,7 +65,8 @@ You can see the result in [https://real-world-drf-qa.herokuapp.com](https://real
 Securely add your Heroku credentials to Travis so that it can automatically deploy your changes (You can also edit project settings in the travis website for add a new environment variable):
 
 ```bash
-travis encrypt HEROKU_API_KEY="add you heroku api key here" --add
+travis encrypt HEROKU_API_KEY="add you heroku api key here" --add  && \
+travis encrypt HEROKU_AUTH_TOKEN="$(heroku auth:token)" --add
 ```
 
 Commit your changes and push to master and qa to trigger your first deploys:
