@@ -5,17 +5,18 @@ Supports registering, viewing, and updating user accounts.
 
 **Request**:
 
-`POST` `/users/`
+`POST` `/api/v1/rest-auth/registration/`
 
 Parameters:
 
 Name       | Type   | Required | Description
 -----------|--------|----------|------------
-username   | string | Yes      | The username for the new user.
-password   | string | Yes      | The password for the new user account.
+email      | string | No       | The user's email address.
 first_name | string | No       | The user's given name.
 last_name  | string | No       | The user's family name.
-email      | string | No       | The user's email address.
+password1  | string | Yes      | The password for the new user account.
+password2  | string | Yes      | The password for the new user account.
+
 
 *Note:*
 
@@ -28,18 +29,70 @@ Content-Type application/json
 201 Created
 
 {
-  "id": "6d5f9bae-a31b-4b7b-82c4-3853eda2b011",
-  "username": "richard",
-  "first_name": "Richard",
-  "last_name": "Hendriks",
-  "email": "richard@piedpiper.com",
-  "auth_token": "132cf952e0165a274bf99e115ab483671b3d9ff6"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+    "user": {
+        "id": 48,
+        "username": "john",
+        "email": "johndoe@example.com",
+        "first_name": "John",
+        "last_name": "Doe",
+        "about": null,
+        "account_verified": true
+    }
 }
 ```
 
-The `auth_token` returned with this response should be stored by the client for
+The `token` returned with this response should be stored by the client for
 authenticating future requests to the API. See [Authentication](authentication.md).
 
+## Verify Email
+Description
+
+**Request**:
+
+`POST` `/api/v1/rest-auth/registration/verify-email/`
+
+Parameters:
+
+Name   | Type   | Description
+-------|--------|------------
+key    | string | The user's key send by email
+
+
+**Response**:
+```json
+{
+  "detail": "ok"
+}
+```
+
+## Get current user's profile information
+We can get the current user profile with the JSON Web Token header (this endpoint support PUT, PATCH methods as well)
+
+**Request**:
+
+`GET` `/api/v1/rest-auth/user/`
+
+Parameters:
+
+(none)
+
+*Note:*
+
+- **[Authorization Protected](authentication.md)**
+
+**Response**:
+```json
+{
+  "id": 48,
+  "username": "john",
+  "email": "johndoe@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "about": "About me...",
+  "account_verified": true
+}
+```
 
 ## Get a user's profile information
 
@@ -60,16 +113,18 @@ Content-Type application/json
 200 OK
 
 {
-  "id": "6d5f9bae-a31b-4b7b-82c4-3853eda2b011",
-  "username": "richard",
-  "first_name": "Richard",
-  "last_name": "Hendriks",
-  "email": "richard@piedpiper.com",
+  "id": 48,
+  "username": "john",
+  "email": "johndoe@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "about": "About me...",
+  "account_verified": true
 }
 ```
 
 
-## Update your profile information
+## Update profile information
 
 **Request**:
 
@@ -82,7 +137,7 @@ Name       | Type   | Description
 first_name | string | The first_name of the user object.
 last_name  | string | The last_name of the user object.
 email      | string | The user's email address.
-
+about      | string | The user's description.
 
 
 *Note:*
@@ -97,10 +152,12 @@ Content-Type application/json
 200 OK
 
 {
-  "id": "6d5f9bae-a31b-4b7b-82c4-3853eda2b011",
-  "username": "richard",
-  "first_name": "Richard",
-  "last_name": "Hendriks",
-  "email": "richard@piedpiper.com",
+  "id": 48,
+  "username": "john",
+  "email": "johndoe@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "about": "New info...",
+  "account_verified": true
 }
 ```

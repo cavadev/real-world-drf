@@ -1,9 +1,16 @@
-# real-world-drf
+Real World DRF Backend
+===================
 
 [![Build Status](https://travis-ci.org/cavadev/real-world-drf.svg?branch=master)](https://travis-ci.org/cavadev/real-world-drf)
 [![Built with](https://img.shields.io/badge/Built_with-Cookiecutter_Django_Rest-F7B633.svg)](https://github.com/agconti/cookiecutter-django-rest)
 
-Example of real world project that use django rest framework.
+Example of a real world project that use django rest framework (DRF). This project first commit was built with [cookiecutter-django-rest](https://github.com/agconti/cookiecutter-django-rest) but after that some changes where made:
+
+* **New Auth Endpoints:** A new set of REST API endpoints for Authentication and Registration with [`django-rest-auth`](https://github.com/Tivix/django-rest-auth).
+* **JSON Web Tokens:** Use [`djangorestframework-jwt`](https://github.com/GetBlimp/django-rest-framework-jwt) for generate JWT.
+* **Sending Emails & Social Authentication:** Use [`django-allauth`](https://github.com/pennersr/django-allautht) for logging with social media accounts, send "email confirmation" and "password reset" emails.
+
+It has also been configurated the use of email/password for login, and emails' templates have been created for the email confirmation and password reset functions.
 
 # Prerequisites
 
@@ -12,6 +19,12 @@ Example of real world project that use django rest framework.
 - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
 # Local Development
+
+Create a superuser to login to the admin:
+
+```bash
+docker-compose run --rm web ./manage.py createsuperuser
+```
 
 Start the dev server for local development:
 ```bash

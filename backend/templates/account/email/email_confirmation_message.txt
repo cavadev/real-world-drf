@@ -1,0 +1,10 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}
+Hi from {{ current_site.name }}!
+
+You're receiving this e-mail because has given this e-mail address to connect your account.
+
+{% if debug %} To confirm this is correct, go to {{ protocol }}://{{ domain }}/{{ activate_url|cut:"http://localhost" }}
+{% else %} To confirm this is correct, go to {{ protocol }}://{{ domain }}/{{ activate_url }}
+{% endif %}
+
+{% endautoescape %}
