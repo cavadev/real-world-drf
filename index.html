@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Example of real world project that use django rest framework">
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Home - real-world-drf</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> real-world-drf</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href=".">Home</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#real-world-drf-backend">Real World DRF Backend</a></li>
+    
+
+    <li class="toctree-l2"><a href="#prerequisites">Prerequisites</a></li>
+    
+
+    <li class="toctree-l2"><a href="#local-development">Local Development</a></li>
+    
+
+    <li class="toctree-l2"><a href="#continuous-deployment">Continuous Deployment</a></li>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">API</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="api/authentication/">Authentication</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="api/users/">Users</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">real-world-drf</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/cavadev/real-world-drf/edit/master/docs/index.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="real-world-drf-backend">Real World DRF Backend</h1>
+<p><a href="https://travis-ci.org/cavadev/real-world-drf"><img alt="Build Status" src="https://travis-ci.org/cavadev/real-world-drf.svg?branch=master" /></a>
+<a href="https://github.com/agconti/cookiecutter-django-rest"><img alt="Built with" src="https://img.shields.io/badge/Built_with-Cookiecutter_Django_Rest-F7B633.svg" /></a></p>
+<p>Example of a real world project that use django rest framework (DRF). This project first commit was built with <a href="https://github.com/agconti/cookiecutter-django-rest">cookiecutter-django-rest</a> but after that some changes where made:</p>
+<ul>
+<li><strong>New Auth Endpoints:</strong> A new set of REST API endpoints for Authentication and Registration with <a href="https://github.com/Tivix/django-rest-auth"><code>django-rest-auth</code></a>.</li>
+<li><strong>JSON Web Tokens:</strong> Use <a href="https://github.com/GetBlimp/django-rest-framework-jwt"><code>djangorestframework-jwt</code></a> for generate JWT.</li>
+<li><strong>Sending Emails &amp; Social Authentication:</strong> Use <a href="https://github.com/pennersr/django-allautht"><code>django-allauth</code></a> for logging with social media accounts, send "email confirmation" and "password reset" emails.</li>
+</ul>
+<p>It has also been configurated the use of email/password for login, and emails' templates have been created for the email confirmation and password reset functions.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<ul>
+<li><a href="https://docs.docker.com/docker-for-mac/install/">Docker</a>  </li>
+<li><a href="http://blog.travis-ci.com/2013-01-14-new-client/">Travis CLI</a></li>
+<li><a href="https://devcenter.heroku.com/articles/heroku-cli">Heroku CLI</a></li>
+</ul>
+<h1 id="local-development">Local Development</h1>
+<p>Create a superuser to login to the admin:</p>
+<pre><code class="bash">docker-compose run --rm web ./manage.py createsuperuser
+</code></pre>
+
+<p>Start the dev server for local development:</p>
+<pre><code class="bash">docker-compose up
+</code></pre>
+
+<p>Run a command inside the docker container:</p>
+<pre><code class="bash">docker-compose run --rm web [command]
+</code></pre>
+
+<h1 id="continuous-deployment">Continuous Deployment</h1>
+<p>Deployment is automated via Travis. When builds pass on the master or qa branch, Travis will deploy that branch to Heroku. Follow these steps to enable this feature.</p>
+<p>Initialize the production server:</p>
+<pre><code>heroku create real-world-drf-prod --remote prod &amp;&amp; \
+    heroku addons:create newrelic:wayne --app real-world-drf-prod &amp;&amp; \
+    heroku addons:create heroku-postgresql:hobby-dev --app real-world-drf-prod &amp;&amp; \
+    heroku config:set DJANGO_SECRET_KEY=`openssl rand -base64 32` \
+        DJANGO_AWS_ACCESS_KEY_ID=&quot;Add your id&quot; \
+        DJANGO_AWS_SECRET_ACCESS_KEY=&quot;Add your key&quot; \
+        DJANGO_AWS_STORAGE_BUCKET_NAME=&quot;real-world-drf-prod&quot; \
+        DJANGO_CONFIGURATION=&quot;Production&quot; \
+        DJANGO_SETTINGS_MODULE=&quot;backend.config&quot; \
+        --app real-world-drf-prod
+</code></pre>
+
+<p>You can see the result in <a href="https://real-world-drf-prod.herokuapp.com">https://real-world-drf-prod.herokuapp.com</a></p>
+<p>Initialize the qa server:</p>
+<pre><code>heroku create real-world-drf-qa --remote qa &amp;&amp; \
+    heroku addons:create newrelic:wayne --app real-world-drf-qa &amp;&amp; \
+    heroku addons:create heroku-postgresql:hobby-dev --app real-world-drf-qa &amp;&amp; \
+    heroku config:set DJANGO_SECRET_KEY=`openssl rand -base64 32` \
+        DJANGO_AWS_ACCESS_KEY_ID=&quot;Add your id&quot; \
+        DJANGO_AWS_SECRET_ACCESS_KEY=&quot;Add your key&quot; \
+        DJANGO_AWS_STORAGE_BUCKET_NAME=&quot;real-world-drf-qa&quot; \
+        DJANGO_CONFIGURATION=&quot;Production&quot; \
+        DJANGO_SETTINGS_MODULE=&quot;backend.config&quot; \
+        --app real-world-drf-qa
+</code></pre>
+
+<p>You can see the result in <a href="https://real-world-drf-qa.herokuapp.com">https://real-world-drf-qa.herokuapp.com</a></p>
+<p>Securely add your Heroku credentials to Travis so that it can automatically deploy your changes (You can also edit project settings in the travis website for add a new environment variable):</p>
+<pre><code class="bash">travis encrypt HEROKU_API_KEY=&quot;add you heroku api key here&quot; --add  &amp;&amp; \
+travis encrypt HEROKU_AUTH_TOKEN=&quot;$(heroku auth:token)&quot; --add
+</code></pre>
+
+<p>Commit your changes and push to master and qa to trigger your first deploys:</p>
+<pre><code class="bash">git commit -a -m &quot;ci(travis): first deploy&quot; &amp;&amp; \
+git push origin master:qa &amp;&amp; \
+git push origin master
+</code></pre>
+
+<p>You're now ready to continuously ship! ✨ 🛳</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api/authentication/" class="btn btn-neutral float-right" title="Authentication">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2019, <a href="https://github.com/cavadev">cavadev</a>.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/cavadev/real-world-drf/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+        <span style="margin-left: 15px"><a href="api/authentication/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.0.4
+Build Date UTC : 2019-06-03 20:00:22
+-->

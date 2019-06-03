@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Authentication - real-world-drf</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Authentication";
+    var mkdocs_page_input_path = "api/authentication.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> real-world-drf</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">API</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Authentication</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#authentication">Authentication</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#retrieving-tokens-login">Retrieving Tokens (Login)</a></li>
+        
+            <li><a class="toctree-l4" href="#delete-tokens-logout">Delete Tokens (Logout)</a></li>
+        
+            <li><a class="toctree-l4" href="#reset-password">Reset Password</a></li>
+        
+            <li><a class="toctree-l4" href="#reset-password-confirmation">Reset Password (confirmation)</a></li>
+        
+            <li><a class="toctree-l4" href="#change-password">Change Password</a></li>
+        
+            <li><a class="toctree-l4" href="#facebook-login">Facebook Login</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../users/">Users</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">real-world-drf</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API &raquo;</li>
+        
+      
+    
+    <li>Authentication</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/cavadev/real-world-drf/edit/master/docs/api/authentication.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="authentication">Authentication</h1>
+<p>For this functionality we use <a href="https://github.com/Tivix/django-rest-auth"><code>django-rest-auth</code></a>, <a href="https://github.com/GetBlimp/django-rest-framework-jwt"><code>djangorestframework-jwt</code></a> and <a href="https://github.com/pennersr/django-allautht"><code>django-allauth</code></a>.</p>
+<p>For clients to authenticate, the JSON Web Token (JWT) should be included in the Authorization HTTP header. The key should be prefixed by the string literal "Bearer", with whitespace separating the two strings (see JWT_AUTH_HEADER_PREFIX configuration). For example:</p>
+<pre><code>Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+</code></pre>
+
+<p>Unauthenticated responses that are denied permission will result in an HTTP <code>401 Unauthorized</code> response with an appropriate <code>WWW-Authenticate</code> header. For example:</p>
+<pre><code>WWW-Authenticate: Bearer
+</code></pre>
+
+<p>The curl command line tool may be useful for testing token authenticated APIs. For example:</p>
+<pre><code class="bash">curl -X GET http://127.0.0.1:8000/api/v1/users/ -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+</code></pre>
+
+<h2 id="retrieving-tokens-login">Retrieving Tokens (Login)</h2>
+<p>Authorization tokens are issued and returned when a user registers (/api/v1/rest-auth/registration/). A registered user can also retrieve their token with the following request:</p>
+<p><strong>Request</strong>:</p>
+<p><code>POST</code> <code>/api/v1/rest-auth/login/</code></p>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>The user's email</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>The user's password</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong>:</p>
+<pre><code class="json">{
+    &quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c&quot;,
+    &quot;user&quot;: {
+        &quot;id&quot;: 48,
+        &quot;username&quot;: &quot;john&quot;,
+        &quot;email&quot;: &quot;johndoe@example.com&quot;,
+        &quot;first_name&quot;: &quot;John&quot;,
+        &quot;last_name&quot;: &quot;Doe&quot;,
+        &quot;about&quot;: &quot;About me...&quot;,
+        &quot;account_verified&quot;: true
+    }
+}
+</code></pre>
+
+<h2 id="delete-tokens-logout">Delete Tokens (Logout)</h2>
+<p>This method does not work well.
+Ref: https://bit.ly/2QyNXtm &amp; https://bit.ly/2Keyeib</p>
+<p><strong>Request</strong>:</p>
+<p><code>POST</code> <code>/api/v1/rest-auth/logout/</code></p>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>string</td>
+<td>The user's JSON Web Token</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong>:</p>
+<pre><code class="json">{
+  &quot;detail&quot;: &quot;Successfully logged out.&quot;
+}
+</code></pre>
+
+<h2 id="reset-password">Reset Password</h2>
+<p>Description</p>
+<p><strong>Request</strong>:</p>
+<p><code>POST</code> <code>/api/v1/rest-auth/password/reset/</code></p>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>The user's email</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong>:</p>
+<pre><code class="json">{
+    &quot;detail&quot;: &quot;Password reset e-mail has been sent.&quot;
+}
+</code></pre>
+
+<h2 id="reset-password-confirmation">Reset Password (confirmation)</h2>
+<p>Description</p>
+<p><strong>Request</strong>:</p>
+<p><code>POST</code> <code>/api/v1/rest-auth/password/reset/confirm/</code></p>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>new_password1</td>
+<td>string</td>
+<td>The user's new password</td>
+</tr>
+<tr>
+<td>new_password2</td>
+<td>string</td>
+<td>The user's new password (confirmation)</td>
+</tr>
+<tr>
+<td>uid</td>
+<td>string</td>
+<td>uid send by email</td>
+</tr>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>token send by email</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong>:</p>
+<pre><code class="json">{
+    &quot;detail&quot;: &quot;Password has been reset with the new password.&quot;
+}
+</code></pre>
+
+<h2 id="change-password">Change Password</h2>
+<p>Description</p>
+<p><strong>Request</strong>:</p>
+<p><code>POST</code> <code>/api/v1/rest-auth/password/change/</code></p>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>new_password1</td>
+<td>string</td>
+<td>The user's new password</td>
+</tr>
+<tr>
+<td>new_password2</td>
+<td>string</td>
+<td>The user's new password (confirmation)</td>
+</tr>
+<tr>
+<td>old_password</td>
+<td>string</td>
+<td>The user's old password</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note:</em></p>
+<ul>
+<li><strong><a href="./">Authorization Protected</a></strong></li>
+</ul>
+<p><strong>Response</strong>:</p>
+<pre><code class="json">{
+  &quot;detail&quot;: &quot;New password has been saved.&quot;
+}
+</code></pre>
+
+<h2 id="facebook-login">Facebook Login</h2>
+<p>Description</p>
+<p><strong>Request</strong>:</p>
+<p><code>POST</code> <code>/api/v1/rest-auth/facebook/</code></p>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>string</td>
+<td>access token.</td>
+</tr>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>code.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note:</em></p>
+<ul>
+<li><strong><a href="./">Authorization Protected</a></strong></li>
+</ul>
+<p><strong>Response</strong>:</p>
+<pre><code class="json">Content-Type application/json
+200 OK
+
+{
+    &quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c&quot;,
+    &quot;user&quot;: {
+        &quot;id&quot;: 48,
+        &quot;username&quot;: &quot;john&quot;,
+        &quot;email&quot;: &quot;johndoe@example.com&quot;,
+        &quot;first_name&quot;: &quot;John&quot;,
+        &quot;last_name&quot;: &quot;Doe&quot;,
+        &quot;about&quot;: &quot;About me...&quot;,
+        &quot;account_verified&quot;: true
+    }
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../users/" class="btn btn-neutral float-right" title="Users">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../.." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2019, <a href="https://github.com/cavadev">cavadev</a>.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/cavadev/real-world-drf/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../.." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../users/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
