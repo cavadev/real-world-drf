@@ -1,5 +1,5 @@
-Real World DRF Backend
-===================
+Real World DRF
+==============
 
 [![Build Status](https://travis-ci.org/cavadev/real-world-drf.svg?branch=master)](https://travis-ci.org/cavadev/real-world-drf)
 [![Built with](https://img.shields.io/badge/Built_with-Cookiecutter_Django_Rest-F7B633.svg)](https://github.com/agconti/cookiecutter-django-rest)
@@ -8,9 +8,11 @@ Example of a real world project that use django rest framework (DRF). This proje
 
 * **New Auth Endpoints:** A new set of REST API endpoints for Authentication and Registration with [`django-rest-auth`](https://github.com/Tivix/django-rest-auth).
 * **JSON Web Tokens:** Use [`djangorestframework-jwt`](https://github.com/GetBlimp/django-rest-framework-jwt) for generate JWT.
-* **Sending Emails & Social Authentication:** Use [`django-allauth`](https://github.com/pennersr/django-allautht) for logging with social media accounts, send "email confirmation" and "password reset" emails.
+* **Sending Emails & Social Authentication:** Use [`django-allauth`](https://github.com/pennersr/django-allautht) for logging with social media accounts, and send "email confirmation" / "password reset" emails.
 
 It has also been configurated the use of email/password for login, and emails' templates have been created for the email confirmation and password reset functions.
+
+Check out the project's [`documentation`](https://cavadev.github.io/real-world-drf)
 
 # Prerequisites
 
