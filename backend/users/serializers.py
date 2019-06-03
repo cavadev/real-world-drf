@@ -12,13 +12,16 @@ from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
     account_verified = serializers.SerializerMethodField()
+    extra_kwargs = {
+        'email': {'allow_null': False, 'required': True}
+    }
 
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'about', 'account_verified')
-        read_only_fields = ('username', )
+        # read_only_fields = ('username', )
 
-    def get_account_verified(self, object): # dynamic field
+    def get_account_verified(self, object):  # dynamic field
         result = EmailAddress.objects.filter(email=object.email)
         if len(result):
             return result[0].verified

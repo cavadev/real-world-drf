@@ -24,7 +24,8 @@ urlpatterns = [
     # The next url use /allauth/account/views.py, but we need declare a null view here
     path('api/v1/rest-auth/registration/verify-email/', null_view, name='rest_verify_email'),
     # The next url use rest_auth/views.py, but we need declare a null view here
-    path('api/v1/rest-auth/password-reset/confirm/<str:uidb64>/<str:token>/', null_view, name='password_reset_confirm'),
+    path('api/v1/rest-auth/password-reset/confirm/<str:uidb64>/<str:token>/', null_view,
+         name='password_reset_confirm'),
     # Necessary for get error msg "User is already registered with this e-mail address."
     path('accounts/', include('allauth.urls'), name='socialaccount_signup'),
 

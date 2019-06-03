@@ -3,11 +3,12 @@ from django.forms.models import model_to_dict
 # from django.contrib.auth.hashers import check_password
 from nose.tools import eq_
 from rest_framework.test import APITestCase
-from rest_framework.authtoken.models import Token
 from rest_framework import status
+from rest_framework_jwt import utils
 from faker import Faker
 from ..models import User
 from .factories import UserFactory
+
 
 fake = Faker()
 
@@ -21,8 +22,9 @@ class TestUserListTestCase(APITestCase):
         self.url = reverse('user-list')
         self.user_data = model_to_dict(UserFactory.build())
         self.user = UserFactory()
-        token, created = Token.objects.get_or_create(user=self.user)
-        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+        payload = utils.jwt_payload_handler(self.user)
+        token = utils.jwt_encode_handler(payload)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
 
     def test_post_request_with_no_data_fails(self):
         response = self.client.post(self.url, {})
@@ -32,11 +34,9 @@ class TestUserListTestCase(APITestCase):
         response = self.client.post(self.url, self.user_data)
         # print("list: ", response)
         eq_(response.status_code, status.HTTP_201_CREATED)
-
         user = User.objects.get(pk=response.data.get('id'))
-        eq_(user.username, self.user_data.get('username'))
-        # print("user: ", user) # user creation don't return password
-        # ok_(check_password(self.user_data.get('password'), user.password))
+        eq_(user.email, self.user_data.get('email'))
+        # ok_(check_password(self.user_data.get('password'), user.password))f
 
 
 class TestUserDetailTestCase(APITestCase):
@@ -47,8 +47,9 @@ class TestUserDetailTestCase(APITestCase):
     def setUp(self):
         self.user = UserFactory()
         self.url = reverse('user-detail', kwargs={'pk': self.user.pk})
-        token, created = Token.objects.get_or_create(user=self.user)
-        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+        payload = utils.jwt_payload_handler(self.user)
+        token = utils.jwt_encode_handler(payload)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
 
     def test_get_request_returns_a_given_user(self):
         response = self.client.get(self.url)
@@ -58,8 +59,6 @@ class TestUserDetailTestCase(APITestCase):
         new_first_name = fake.first_name()
         payload = {'first_name': new_first_name}
         response = self.client.patch(self.url, payload)
-        # print("detail: ", response)
         eq_(response.status_code, status.HTTP_200_OK)
-
         user = User.objects.get(pk=self.user.id)
         eq_(user.first_name, new_first_name)

@@ -24,5 +24,4 @@ class TestUserSerializer(TestCase):
         ok_(serializer.is_valid())
 
         # user = serializer.save()
-        # print("user: ", user) user creation don't return password
         # ok_(check_password(self.user_data.get('password'), user.password))
