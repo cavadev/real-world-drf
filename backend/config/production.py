@@ -30,3 +30,7 @@ class Production(Common):
     AWS_HEADERS = {
         'Cache-Control': 'max-age=86400, s-maxage=86400, must-revalidate',
     }
+
+    CORS_ORIGIN_WHITELIST = [
+        os.getenv('DJANGO_CORS_ORIGIN_WHITELIST')
+    ]

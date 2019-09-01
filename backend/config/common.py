@@ -23,6 +23,7 @@ class Common(Configuration):
         'rest_auth',                 # django-rest-auth (API endpoints for User operations)
         'django_filters',            # for filtering rest endpoints
         'django.contrib.sites',      # used by django-allauth
+        'corsheaders',
         'allauth',                   # django-allauth
         'allauth.account',
         'rest_auth.registration',    # django-rest-auth using django-allauth
@@ -40,6 +41,7 @@ class Common(Configuration):
     MIDDLEWARE = (
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
