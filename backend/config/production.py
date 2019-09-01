@@ -32,5 +32,5 @@ class Production(Common):
     }
 
     CORS_ORIGIN_WHITELIST = [
-        "http://localhost:3000"
+        os.getenv('DJANGO_CORS_ORIGIN_WHITELIST')
     ]
