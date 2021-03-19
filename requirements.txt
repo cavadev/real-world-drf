@@ -14,7 +14,7 @@ django-model-utils==3.1.2
 django_unique_upload==0.2.1
 
 # Rest apis
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 django-rest-auth==0.9.5
 django-allauth==0.39.1
 djangorestframework-jwt==1.11.0
